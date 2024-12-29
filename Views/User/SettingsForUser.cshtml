@@ -1,0 +1,29 @@
+﻿@model User
+<style>
+    .column{
+        display: flex;
+        flex-direction: column;
+    }
+    p{
+        margin-top: 10px;
+        margin-bottom: -4px;
+    }
+</style>
+<form class="column" action="/User/SettingsForUserPost" method="post">
+    <input type="text" name="trueUserName" value="@Model.UserName" hidden>
+
+    <p>Изменнить имя:</p>
+    <input type="text" name="name" value="@Model.UserName">
+    <p>Изменнить роль:</p>
+    <input type="text" name="role" value="@Model.Role">
+    <p>Изменить пароль:</p>
+    <input type="text" name="password">
+
+    <input type="text" name="prevHashPassword" value="@Model.HashPassword" hidden>
+
+    <input style="margin-top: 10px;" type="submit" value="Сохранить изменения">
+</form>
+<form action="/User/Delete">
+    <input type="text" name="username" value="@Model.UserName" hidden>
+    <input type="submit" value="Удалить пользователя" class="red-bg-warning">
+</form>

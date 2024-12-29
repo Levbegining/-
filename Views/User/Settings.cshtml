@@ -1,0 +1,33 @@
+﻿@model ProjectUser.Models.ViewModels.SettingsVM
+<h1>Настройки</h1>
+
+@if (Model.IsAuthenticated && Model.CurrentUser.Role == "admin")
+{
+        <p>Настройки администратора доступны для пользователя @Model.CurrentUser.UserName</p>
+
+
+        @foreach (var i in Model.Users)
+        {
+            //if (i.Role == null || i.Role == "") { i.Role = "default"; } // fix(закомментировать в будущем)
+            
+            <form style="display: flex; flex-direction: column;" action="/User/SettingsForUser" method="post">
+                @* <input type="text" name="id" value="@i.Id" hidden> *@
+                <input type="text" name="username" value="@i.UserName" readonly>
+                <input type="text" name="role" value="@i.Role" readonly>
+
+                <input type="submit" value="Изменить">
+            </form>
+        }
+        <p>Профиль</p>
+        <form style="display: flex; flex-direction: column;" action="/User/SettingsProfile" method="post">
+                @* <input type="text" name="id" value="@i.Id" hidden> *@
+                <input type="text" name="username" value="@Model.CurrentUser.UserName" readonly>
+                <input type="text" name="role" value="@Model.CurrentUser.Role" readonly>
+
+                <input type="submit" value="Изменить">
+        </form>
+}
+else
+{
+        <p>Вы не авторизованы. доступ администратора запрещён!</p>
+}
